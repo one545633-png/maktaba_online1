@@ -1,0 +1,198 @@
+//used to stored the current items in basket, including collection name and document id
+//in the format of collection:id. it is updated when the page is loaded (reloaded) or the user adds
+// new items in the basket. 
+
+// note we only support favourites now, not the old drag and drop berry baskets
+
+var favouritesList =  new Array();
+var show = false;
+
+
+var countFavouritesUNUSED = function(callback) {
+        var request_type = "GET";
+    var url = gs.xsltParams.library_name + "?a=pr&rt=r&ro=1&s=GetNumFavourites&o=XML&hhf="+makeURLComponentSafe("[{\"name\":\"Cache-Control\", \"value\":\"no-cache\"}]")+"&c=";
+
+    var responseSuccess = function(o) {
+		
+	var response = o.responseXML;
+	var size = response.getElementsByTagName('size').item(0).getAttribute('value');
+	
+	var items = response.getElementsByTagName('documentNode');
+
+	callback(items.length);
+    }
+
+    YAHOO.util.Connect.asyncRequest(request_type , url , {success: responseSuccess });
+ 
+}
+
+
+// display selected favourites (filled-in star icon) on page
+var favouritesCheckout = function(){
+
+	if ( document.getElementById('favouritebasket') == null ) return;
+	
+	var request_type = "GET";
+    var url = gs.xsltParams.library_name + "?a=pr&rt=r&ro=1&s=GetNumFavourites&o=XML&hhf="+makeURLComponentSafe("[{\"name\":\"Cache-Control\", \"value\":\"no-cache\"}]")+"&c=";
+
+	var responseSuccess = function(o){
+		
+		var response = o.responseXML;
+		var size = response.getElementsByTagName('size').item(0).getAttribute('value');
+
+		var items = response.getElementsByTagName('documentNode');
+
+		favouritesList = new Array();
+		for (var i=0;i < items.length ; i++ ){
+
+		    var itemID = items[i].getAttribute('collection')+":"+items[i].getAttribute('nodeID');
+			var item = YAHOO.util.Dom.get(itemID);
+
+			if (item != null){
+			        item.src = gs.variables.selected_favourite_icon_url;
+			        item.setAttribute("data-is-favourite","true");
+			}
+		    favouritesList[favouritesList.length] = itemID;//items[i];
+		}
+
+		// set favourite images visible
+		// they are set to be invisible to prevent flickering when first loaded (see favourites.css)
+
+		var favourites = document.getElementsByTagName('img');
+
+		for (var j=0; j < favourites.length; j++){
+			var fav = favourites[j]; 
+			var parent = fav.parentNode;
+			if (parent !=null && parent.id == "documentfavourites"){
+				var root = YAHOO.util.Dom.get(fav.id+":root");
+				var section = YAHOO.util.Dom.get(fav.id+":section");
+				if(root!=null && root.id.indexOf(fav.id) !=-1){
+					root.style.visibility ="visible" ;
+				}
+
+				if(section!=null && section.id.indexOf(fav.id) !=-1){
+					section.style.visibility ="visible" ;
+				}
+			}
+
+			if (fav.className && fav.className == 'pick'){
+				fav.style.visibility = "visible";
+			}
+		}
+		updateFavouritesCount();
+	}
+
+	var responseFailure = function(o){
+		console.error("GetNumFavourites AJAX call failed:" + url);
+	}
+
+	var callback = {
+		success: responseSuccess,
+		failure: responseFailure
+	}
+
+	//var date = new Date();
+	//url += "&rand=" + date.getTime();
+	YAHOO.util.Connect.asyncRequest(request_type , url , callback);
+}
+
+
+
+function updateFavouritesCount() {
+	var favouritesCountElement = YAHOO.util.Dom.get('favouritesCountDisplay');
+	if ( favouritesCountElement == null ) return;
+	if ( favouritesList.length == 0 ) {
+		favouritesCountElement.innerHTML = "(0)";
+	} else {
+		favouritesCountElement.innerHTML = "(" + favouritesList.length + ")";
+	}
+}
+
+
+
+function addFavourite(el){
+    var addurl = gs.xsltParams.library_name + "?a=pr&rt=r&ro=1&s=AddFavourite&c=&s1.id=2&o=XML&hhf="+makeURLComponentSafe("[{\"name\":\"Cache-Control\", \"value\":\"no-cache\"}]")+"&s1.item=" + el.id;
+
+    var request_type = "GET";
+	var addSuccess = function(o){
+		var result = o.responseXML;
+		var items = result.getElementsByTagName('documentNode');
+
+		if (items.length > 0){
+		    // assumes that there is only 1 item to add
+		    var item = items[0];
+                    var itemID = item.getAttribute('collection')+":"+item.getAttribute('nodeID');
+		    favouritesList[favouritesList.length]= itemID;
+
+	            updateFavouritesCount();
+		}
+
+	}
+
+	var addFailure = function(o){
+	}
+
+	var addcallback = {
+		success:addSuccess,
+		failure:addFailure
+	}
+	
+	YAHOO.util.Connect.asyncRequest(request_type , addurl , addcallback);
+}
+
+
+function deleteFavourite(el){
+    var delurl = gs.xsltParams.library_name + "?a=pr&rt=r&ro=1&s=DeleteFavourites&c=&o=XML&hhf="+makeURLComponentSafe("[{\"name\":\"Cache-Control\", \"value\":\"no-cache\"}]")+"&s1.items=" + el.id;
+
+    var request_type = "GET";
+	var delSuccess = function(o){
+
+	        for (var i in favouritesList) {
+                        var fav = favouritesList[i];
+		        console.log(fav);
+                        //var id = fav.getAttribute('collection')+":"+fav.getAttribute('nodeID');
+
+                        if (fav == el.id){
+                                favouritesList.splice(i,1);
+
+                                break;
+                        }
+
+                }
+	        updateFavouritesCount();
+	    
+	}
+
+	var delFailure = function(o){
+	}
+
+	var delcallback = {
+		success:delSuccess,
+		failure:delFailure
+	}
+	
+	YAHOO.util.Connect.asyncRequest(request_type , delurl , delcallback);
+}
+
+
+
+function toggleFavourite(el)
+{
+    var is_favourite = el.getAttribute("data-is-favourite");
+    if (is_favourite == "true") {
+	deleteFavourite(el);
+	el.src = gs.variables.unselected_favourite_icon_url;
+	el.setAttribute("data-is-favourite","false")
+    }
+    else {
+	addFavourite(el);
+	el.src = gs.variables.selected_favourite_icon_url;
+	el.setAttribute("data-is-favourite","true")
+    }
+}
+
+YAHOO.util.Event.addListener(window, 'load', favouritesCheckout);
+//YAHOO.util.Event.addListener(window, 'click', basketUpdate);
+
+
+

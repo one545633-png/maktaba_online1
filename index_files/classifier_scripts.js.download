@@ -1,0 +1,256 @@
+var inProgress = new Array();
+var openClassifiers = new Array();
+var busy = false;
+
+function isExpanded(sectionID)
+{
+	var divElem = gs.jqGet("div" + sectionID);
+	if(!divElem.css("display") || divElem.css("display") != "none")
+	{
+		return true;
+	}
+	return false;
+}
+
+function toggleSection(sectionID)
+{
+	var section = gs.jqGet("div" + sectionID);
+	var sectionToggle = gs.jqGet("toggle" + sectionID);
+	
+	if(sectionToggle.length === 0)
+	{
+		return;
+	}
+	
+	//If the div exists
+	// Test if 'section' exists.  
+	// ==> Because we're using jQuery to do this we need to test the length of the object returned
+	// http://stackoverflow.com/questions/920236/how-can-i-detect-if-a-selector-returns-null
+	if(section.length !== 0)
+	{
+		var expanding = false;
+		if(isExpanded(sectionID))
+		{
+			expanding = false;
+			section.css("display", "none");
+			sectionToggle.attr("src", gs.imageURLs.expand);
+
+			if(openClassifiers[sectionID] != undefined && openClassifiers[sectionID].length !== 0)
+			{
+				delete openClassifiers[sectionID];
+			}
+		}
+		else
+		{
+			expanding = true;
+			section.css("display", "block");
+			sectionToggle.attr("src", gs.imageURLs.collapse);
+			openClassifiers[sectionID] = true;	
+		}
+		updateOpenClassifiers();
+		if(typeof mapEnabled !== 'undefined' /*&& mapEnabled*/){
+			//console.log("Classifier scripts -> updateMap()");
+			toggleMapSection({"expand": expanding, "nodeID": sectionID});
+			updateMap();
+		}
+	}
+	else
+	{
+	    httpBrowseRequest(sectionID, "vlist");
+	}
+}
+
+function toggleHListSection(sectionID)
+{
+
+    var parentID = getParentID(sectionID);
+    var section = document.getElementById('div' + sectionID);
+    var parent = document.getElementById('classifiernodelist'+parentID);
+    if (parent === null) {
+	console.log("couldn't find parent for "+sectionID);
+	return;
+    }
+    if(section != null) {
+	
+	
+	var expanding = false;
+	var sectionTitle = document.getElementById("title"+sectionID);
+	if(isExpanded(sectionID))
+	{
+	    expanding = false;
+	    section.style.display = "none";
+
+	    sectionTitle.classList.remove("selectedHorizontalClassifierNode");
+	    if(openClassifiers[sectionID] != undefined && openClassifiers[sectionID].length !== 0)
+	    {
+		delete openClassifiers[sectionID];
+	    }
+	}
+	else
+	{
+	    expanding = true;
+	    section.style.display="block";
+	    sectionTitle.classList.add("selectedHorizontalClassifierNode");
+	    openClassifiers[sectionID] = true;	
+	}
+	updateOpenClassifiers();
+	if(typeof mapEnabled !== 'undefined' /*&& mapEnabled*/){
+	    //console.log("Classifier scripts -> updateMap()");
+	    toggleMapSection({"expand": expanding, "nodeID": sectionID});
+	    updateMap();
+	}
+    }
+    else
+    {
+	// get teh content of the section
+	httpBrowseRequest(sectionID, "hlist");
+    }
+    // now hide the one that was already displayed (if any)
+    var children = parent.querySelectorAll('.childrenlist');
+    for (var i = 0; i < children.length; i++) {
+	var child = children[i];
+	var cid = child.id.substring(3); // remove 'div' from the id so we can get the section id
+	if (cid != sectionID) {
+	    child.style.display="none";
+	    var childTitle = document.getElementById('title'+cid);
+	    childTitle.classList.remove("selectedHorizontalClassifierNode");
+	    delete openClassifiers[cid];
+	}
+    }
+    updateOpenClassifiers();
+
+}
+
+function updateOpenClassifiers()
+{
+	var oc = "";
+	var first = true;
+	for(var key in openClassifiers)
+	{
+		if(first)
+		{
+			first = false;
+		}
+		else
+		{
+			oc += ",";
+		}
+		
+		oc += key;
+	}
+
+	if(oc != undefined && oc != "")
+	{
+		window.location.hash = oc;
+	}
+}
+
+function openStoredClassifiers()
+{
+	if(window.location.hash != undefined && window.location.hash.length > 1)
+	{
+		var toOpen = window.location.hash.substring(1,window.location.hash.length).split(",");
+		var loopFunction = function(sectionArray, index)
+		{
+			if(!busy && index < sectionArray.length)
+			{
+				busy = true;
+				toggleSection(sectionArray[index]);
+				setTimeout(function()
+				{
+					loopFunction(sectionArray, index + 1);
+				}, 25);
+				
+				return true;
+			}
+			
+			setTimeout(function()
+			{
+				loopFunction(sectionArray, index);
+			}, 25);
+			return false;
+		}
+		
+		if(toOpen.length > 0)
+		{
+			loopFunction(toOpen, 0);
+		}
+	}
+}
+
+function getParentID(sectionID) {
+    if (sectionID.lastIndexOf(".") != -1) {
+	return sectionID.substring(0, sectionID.lastIndexOf("."));
+    }
+    return sectionID;
+}
+
+function httpBrowseRequest(sectionID, listType)
+{
+	if(!inProgress[sectionID])
+	{
+	    inProgress[sectionID] = true;
+
+	    if (listType != "hlist") {
+		var sectionToggle = gs.jqGet("toggle" + sectionID);
+		sectionToggle.attr("src", gs.imageURLs.loading);
+	    }
+		var url = gs.xsltParams.library_name + "/collection/" + gs.cgiParams.c + "/browse/" + sectionID.replace(/\./g, "/") + "?excerptid=div" + sectionID;
+
+		if(gs.cgiParams.favouritebasket == "on")
+		{
+			url = url + "&favouritebasket=on";
+		} 
+
+		if(url.indexOf("#") != -1)
+		{
+			url = url.substring(0, url.indexOf("#"));
+		}
+		
+		$.ajax(url)
+		.done(function(data)
+		{
+		    var newDiv = $("<div>");
+		    if (listType == "hlist") {
+			var parent = gs.jqGet("classifiernodelist"+getParentID(sectionID));
+			var title = gs.jqGet("title"+sectionID);
+			title.addClass("selectedHorizontalClassifierNode");
+			parent.append(newDiv);
+
+		    } else {
+			var sibling = gs.jqGet("title" + sectionID);
+		    	sibling.after(newDiv);
+			sectionToggle.attr("src", gs.imageURLs.collapse);
+
+		    }
+			newDiv.html(data);
+			
+			openClassifiers[sectionID] = true;	
+			
+			if(gs.cgiParams.favouritebasket == "on")
+			{
+				favouritesCheckout();
+			}
+			if(gs.cgiParams.documentbasket == "on")
+			{
+				dmcheckout();
+			}
+			updateOpenClassifiers();			
+			if(typeof mapEnabled !== 'undefined'){
+				httpMapBrowseRequest(sectionID);
+			}
+		})
+		.fail(function()
+		      {
+			  if (listType != "hlist") {
+			      sectionToggle.attr("src", gs.imageURLs.expand);
+			  }
+		})
+		.always(function()
+		{
+			inProgress[sectionID] = false;
+			busy = false;
+		});
+		}
+		     
+}

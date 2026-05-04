@@ -1,0 +1,75 @@
+#favouritebasket {
+	min-height: 22px;
+	padding: 5px;
+	/*background: transparent url("../images/kete2.png") scroll repeat 0 0;*/
+	z-index:10;
+	font-size: 80%;
+	min-height: 2em;
+	display: block;
+}
+
+#favouritesFullViewLink  {
+    text-decoration: underline;
+    color: #444 !important;
+}
+
+
+.pick {
+  visibility:hidden;
+}
+
+#shareanddelbuttons {
+    padding: 5px;
+}
+
+/* these couple are, I think, for selecting favourites on a document page */
+p#documentfavourites {
+   font-weight: bold;
+   font-size:90%;
+}
+
+.documentfavourite {
+  margin:0 2em 0 0;
+  padding:0;
+  visibility:hidden;
+}
+
+/* these following ones are for the email form provided, if have server email server */
+.sendbutton{
+   font-family:sans-serif;
+   background-color:#E0F0E0;
+   border:1px solid #2E8B57;   
+   padding: 4px  4px 4px 4px; 
+   font-weight: bold;
+   cursor: pointer;
+   /*width: 5em;*/
+   font-size: 90%;
+   margin: 1em 0 0 0;
+}
+
+
+.mailinput {
+  border:1px solid #2E8B57; 
+  width: 20em;
+  height: 1.5em;
+  font-size: 90%
+}
+
+.mailitem{
+   text-align: left;
+ }
+
+
+textarea#pretextarea {
+  font-family:sans-serif;
+  border:1px solid #2E8B57; 
+  width: 100%;
+  height: 25em;
+  font-size: 90%;
+  margin: 0.5em 0 0 0;
+  padding:0;
+}
+
+
+
+

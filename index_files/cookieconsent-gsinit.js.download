@@ -1,0 +1,122 @@
+// @ts-nocheck
+
+/**
+ * Initialisation for the cookieconsent.js script, originally based on version 2.7.2.
+ * See https://github.com/orestbida/cookieconsent for customisation options.
+ * The translation strings that are referenced in this document via 'gs.text.ccm.XXX'
+ * can be found in the 'interface_default<_LANG>.properties' files, under 'WEB-INF/classes'.
+ */
+
+//alert("same_site = Strict");
+
+// obtain plugin
+var cc = initCookieConsent();
+
+// run plugin with your configuration
+cc.run({
+    current_lang: 'en',
+    autoclear_cookies: false,                  // default: false
+    page_scripts: true,                        // default: false
+    cookie_path: gs.xsltParams.cookie_path,  // default: "/"
+    
+    gui_options: {
+        consent_modal: {
+            layout: 'cloud',                   // box/cloud/bar
+            position: 'bottom left',           // bottom/middle/top + left/right/center
+            transition: 'slide',               // zoom/slide
+            swap_buttons: false                // enable to invert buttons
+        },
+        settings_modal: {
+            layout: 'box',                     // box/bar
+            // position: 'left',               // left/right - only valid with 'bar' layout
+            transition: 'slide'                // zoom/slide
+        }
+    },
+
+    // mode: 'opt-in'                          // default: 'opt-in'; value: 'opt-in' or 'opt-out'
+    // delay: 0,                               // default: 0
+    // auto_language: null                     // default: null; could also be 'browser' or 'document'
+    // autorun: true,                          // default: true
+    // force_consent: false,                   // default: false
+    // hide_from_bots: false,                  // default: false
+    // remove_cookie_tables: false             // default: false
+    // cookie_name: 'cc_cookie',               // default: 'cc_cookie'
+    // cookie_expiration: 182,                 // default: 182 (days)
+    // cookie_necessary_only_expiration: 182   // default: disabled
+    // cookie_domain: location.hostname,       // default: current domain
+    // // cookie_same_site: 'Lax',                // default: 'Lax'
+    // cookie_same_site: 'Strict',                // consider making 'Strict' if an https site ?!?! (GS3)
+    // use_rfc_cookie: false,                  // default: false
+    // revision: 0,                            // default: 0
+
+    onFirstAction: function(user_preferences, cookie){
+        // callback triggered only once
+    },
+
+    onAccept: function (cookie) {
+        // ...
+    },
+
+    onChange: function (cookie, changed_preferences) {
+        // ...
+    },
+
+    languages: {
+        'en': {
+            consent_modal: {
+                title: gs.text.ccm.Popup_Title,
+                description: gs.text.ccm.Popup_Description + ' <button type="button" data-cc="c-settings" class="cc-link">'
+                    + gs.text.ccm.Popup_OpenAdvancedManager + '</button>',
+                primary_btn: {
+                    text: gs.text.ccm.Popup_AcceptAllCookies,
+                    role: 'accept_necessary'              // 'accept_selected' or 'accept_all'
+                },
+                // secondary_btn: {
+                //     text: gs.text.ccm.Popup_AcceptNecessaryCookies,
+                //     role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                // }
+            },
+            settings_modal: {
+                title: gs.text.ccm.Manager_Title,
+                save_settings_btn: gs.text.ccm.Manager_SaveSettingsButton,
+                accept_all_btn: gs.text.ccm.Manager_AcceptAllButton,
+                // reject_all_btn: ccm.Manager_AcceptNecessaryButton,
+                close_btn_label: gs.text.ccm.Manager_CloseButton,
+                cookie_table_headers: [
+                    { name: gs.text.ccm.Manager.CookieTableHeaders_Name },
+                    { provider: gs.text.ccm.Manager.CookieTableHeaders_Provider },
+                    { expiration: gs.text.ccm.Manager.CookieTableHeaders_Expiration },
+                    { description: gs.text.ccm.Manager.CookieTableHeaders_Description }
+                ],
+                blocks: [
+                    {
+                        description: gs.text.ccm.Manager_Description
+                    },
+                    {
+                        title: gs.text.ccm.Manager.RequiredCookies_Title,
+                        description: gs.text.ccm.Manager.RequiredCookies_Description,
+                        toggle: {
+                            value: 'required', // The cookie collection to toggle
+                            enabled: true,
+                            readonly: true
+                        },
+                        cookie_table: [
+                            {
+                                name: 'JSESSIONID',
+                                provider: window.location.hostname,
+                                expiration: gs.text.ccm.Manager.CookieTable_EndOfSessionExpiration,
+                                description: gs.text.ccm.Manager.RequiredCookies.JSESSIONID_Description,
+                            },
+                            {
+                                name: 'supportsXSLT',
+                                provider: window.location.hostname,
+                                expiration: gs.text.ccm.Manager.CookieTable_EndOfSessionExpiration,
+                                description: gs.text.ccm.Manager.RequiredCookies.supportsXSLT_Description
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+});
