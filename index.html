@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة العلوم الرقمية</title>
+    <title>مكتبة العلوم الرقمية الشاملة</title>
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
@@ -21,7 +21,7 @@
             margin: 40px 0 20px 0;
             border-bottom: 2px solid #2563eb;
             padding-bottom: 10px;
-            max-width: 600px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -29,7 +29,7 @@
             color: #555;
             margin-bottom: 30px;
         }
-        .book, .audio-item { 
+        .book, .audio-item, .image-item { 
             background: white; 
             margin: 15px auto; 
             padding: 20px; 
@@ -38,7 +38,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .book:hover, .audio-item:hover {
+        .book:hover, .audio-item:hover, .image-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -52,7 +52,7 @@
         .book a:hover { 
             color: #dc2626; 
         }
-        .audio-item h3 {
+        .audio-item h3, .image-item h3 {
             margin: 0 0 15px 0;
             color: #2563eb;
             font-size: 18px;
@@ -61,125 +61,80 @@
             width: 100%;
             margin-top: 10px;
         }
+        .image-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
         .note {
             font-size: 14px;
             color: #666;
             margin-top: 5px;
         }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .gallery .image-item {
+            max-width: 100%;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
-    <h1>📚 مكتبة العلوم الرقمية</h1>
-    <p>كتب وملفات صوتية للصف الرابع الابتدائي</p>
+    <h1>📚 مكتبة العلوم الرقمية الشاملة</h1>
+    <p>كتب وملفات صوتية وصور تعليمية للصف الرابع الابتدائي</p>
 
     <h2>📖 الكتب والملفات</h2>
-
     <div class="book">
-        <a href="Science_prim4_TR1.pdf" target="_blank">
-            علوم الصف الرابع - ترم 1
-            <div class="note">تحميل مباشر</div>
-        </a>
+        <a href="Science_prim4_TR1.pdf" target="_blank">علوم الصف الرابع - ترم 1</a>
     </div>
-
     <div class="book">
-        <a href="Science_FR_PRIM4_Tr1_2.pdf" target="_blank">
-            Sciences - Primaire 4 - Trimestre 1
-            <div class="note">تحميل مباشر</div>
-        </a>
+        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/noor-book.pdf" target="_blank">كتاب الأنشطة - علوم رابع ترم اول</a>
     </div>
-
     <div class="book">
-        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/noor-book.pdf" target="_blank">
-            كتاب الأنشطة - علوم رابع ترم اول
-            <div class="note">قراءة مباشرة من جوجل</div>
-        </a>
+        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/zakroly.pdf" target="_blank">مذكرة علوم - 4 ابتدائي ترم 1 - ذاكرولي</a>
     </div>
-
     <div class="book">
-        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/zakroly.pdf" target="_blank">
-            مذكرة علوم - 4 ابتدائي ترم 1 - ذاكرولي
-            <div class="note">قراءة مباشرة من جوجل</div>
-        </a>
-    </div>
-
-    <div class="book">
-        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/manhagy.pdf" target="_blank">
-            ملخص علوم رابع ترم 1 - موقع منهجي
-            <div class="note">قراءة مباشرة من جوجل</div>
-        </a>
-    </div>
-
-    <div class="book">
-        <a href="العلوم.pdf" target="_blank">
-            كتاب العلوم
-            <div class="note">تحميل مباشر</div>
-        </a>
+        <a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/manhagy.pdf" target="_blank">ملخص علوم رابع ترم 1 - موقع منهجي</a>
     </div>
 
     <h2>🎧 الملفات الصوتية</h2>
-
     <div class="audio-item">
         <h3>الجهاز التنفسي</h3>
-        <audio controls>
-            <source src="الجهاز%20التنفسي.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
+        <audio controls><source src="الجهاز%20التنفسي.mp3" type="audio/mpeg"></audio>
     </div>
-
     <div class="audio-item">
         <h3>الجهاز الهضمي</h3>
-        <audio controls>
-            <source src="الجهاز%20الهضمي.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
+        <audio controls><source src="الجهاز%20الهضمي.mp3" type="audio/mpeg"></audio>
     </div>
-
-    <div class="audio-item">
-        <h3>الحيوانات</h3>
-        <audio controls>
-            <source src="الحيوانات.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
-    </div>
-
     <div class="audio-item">
         <h3>تعريف الحركة</h3>
-        <audio controls>
-            <source src="تعريف%20الحركة.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
+        <audio controls><source src="تعريف%20الحركة.mp3" type="audio/mpeg"></audio>
     </div>
-
     <div class="audio-item">
         <h3>تعريف الطاقة</h3>
-        <audio controls>
-            <source src="تعريف%20الطاقة.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
+        <audio controls><source src="تعريف%20الطاقة.mp3" type="audio/mpeg"></audio>
     </div>
 
-    <div class="audio-item">
-        <h3>دورة المياه</h3>
-        <audio controls>
-            <source src="دورة%20المياه.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
-    </div>
-
-    <div class="audio-item">
-        <h3>صوت حيوان 2</h3>
-        <audio controls>
-            <source src="صوت%20حيوان%202.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
-    </div>
-
-    <div class="audio-item">
-        <h3>صوت حيوان</h3>
-        <audio controls>
-            <source src="صوت%20حيوان.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت
-        </audio>
+    <h2>🖼️ معرض الصور التعليمية</h2>
+    <div class="gallery">
+        <div class="image-item">
+            <h3>أجزاء النبات</h3>
+            <img src="plant.jpg" alt="أجزاء النبات">
+        </div>
+        <div class="image-item">
+            <h3>الخلية النباتية</h3>
+            <img src="cell.png" alt="الخلية النباتية">
+        </div>
+        <div class="image-item">
+            <h3>دورة المياه</h3>
+            <img src="water_cycle.jpg" alt="دورة المياه">
+        </div>
     </div>
 
 </body>
