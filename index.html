@@ -16,11 +16,20 @@
             color: #1e3a8a; 
             margin-bottom: 10px; 
         }
+        h2 {
+            color: #1e3a8a;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
         p {
             color: #555;
             margin-bottom: 30px;
         }
-        .book { 
+        .book, .audio-item { 
             background: white; 
             margin: 15px auto; 
             padding: 20px; 
@@ -29,7 +38,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .book:hover {
+        .book:hover, .audio-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -43,6 +52,15 @@
         .book a:hover { 
             color: #dc2626; 
         }
+        .audio-item h3 {
+            margin: 0 0 15px 0;
+            color: #2563eb;
+            font-size: 18px;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
         .note {
             font-size: 14px;
             color: #666;
@@ -52,7 +70,9 @@
 </head>
 <body>
     <h1>📚 مكتبة العلوم الرقمية</h1>
-    <p>اضغط على اسم الكتاب للقراءة مباشرة - يعمل على الموبايل والكمبيوتر</p>
+    <p>كتب وملفات صوتية للصف الرابع الابتدائي</p>
+
+    <h2>📖 الكتب والملفات</h2>
 
     <div class="book">
         <a href="Science_prim4_TR1.pdf" target="_blank">
@@ -90,10 +110,76 @@
     </div>
 
     <div class="book">
-        <a href="Science_AR_prim4_TR1.pdf" target="_blank">
-            Science AR - Prim 4 - TR1
+        <a href="العلوم.pdf" target="_blank">
+            كتاب العلوم
             <div class="note">تحميل مباشر</div>
         </a>
+    </div>
+
+    <h2>🎧 الملفات الصوتية</h2>
+
+    <div class="audio-item">
+        <h3>الجهاز التنفسي</h3>
+        <audio controls>
+            <source src="الجهاز%20التنفسي.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>الجهاز الهضمي</h3>
+        <audio controls>
+            <source src="الجهاز%20الهضمي.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>الحيوانات</h3>
+        <audio controls>
+            <source src="الحيوانات.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>تعريف الحركة</h3>
+        <audio controls>
+            <source src="تعريف%20الحركة.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>تعريف الطاقة</h3>
+        <audio controls>
+            <source src="تعريف%20الطاقة.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>دورة المياه</h3>
+        <audio controls>
+            <source src="دورة%20المياه.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>صوت حيوان 2</h3>
+        <audio controls>
+            <source src="صوت%20حيوان%202.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
+    </div>
+
+    <div class="audio-item">
+        <h3>صوت حيوان</h3>
+        <audio controls>
+            <source src="صوت%20حيوان.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت
+        </audio>
     </div>
 
 </body>
