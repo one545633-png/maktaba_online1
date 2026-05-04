@@ -29,7 +29,7 @@
             color: #555;
             margin-bottom: 30px;
         }
-        .book, .audio-item, .image-item { 
+        .book, .audio-item, .image-item, .video-item { 
             background: white; 
             margin: 15px auto; 
             padding: 20px; 
@@ -38,7 +38,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .book:hover, .audio-item:hover, .image-item:hover {
+        .book:hover, .audio-item:hover, .image-item:hover, .video-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -52,14 +52,15 @@
         .book a:hover { 
             color: #dc2626; 
         }
-        .audio-item h3, .image-item h3 {
+        .audio-item h3, .image-item h3, .video-item h3 {
             margin: 0 0 15px 0;
             color: #2563eb;
             font-size: 18px;
         }
-        audio {
+        audio, video {
             width: 100%;
             margin-top: 10px;
+            border-radius: 8px;
         }
         .image-item img {
             max-width: 100%;
@@ -80,7 +81,7 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        .gallery .image-item {
+        .gallery .image-item, .gallery .video-item {
             max-width: 100%;
             margin: 0;
         }
@@ -88,7 +89,7 @@
 </head>
 <body>
     <h1>📚 مكتبة العلوم الرقمية الشاملة</h1>
-    <p>كتب وملفات صوتية وصور تعليمية للصف الرابع الابتدائي</p>
+    <p>كتب وملفات صوتية وصور وفيديوهات تعليمية للصف الرابع الابتدائي</p>
 
     <h2>📖 الكتب والملفات</h2>
     <div class="book"><a href="Science_prim4_TR1.pdf" target="_blank">علوم الصف الرابع - ترم 1</a></div>
@@ -98,6 +99,36 @@
     <div class="book"><a href="https://docs.google.com/gview?embedded=true&url=https://one545633-png.github.io/maktaba_online1/manhagy.pdf" target="_blank">ملخص علوم رابع ترم 1 - موقع منهجي</a></div>
     <div class="book"><a href="العلوم.pdf" target="_blank">كتاب العلوم</a></div>
 
+    <h2>🎬 الفيديوهات التعليمية</h2>
+    <div class="video-item">
+        <h3>تجربة توضح عملية الهضم للصف الرابع</h3>
+        <video controls>
+            <source src="%D8%AA%D8%AC%D8%B1%D8%A8%D8%A9%20%D8%AA%D9%88%D8%B6%D8%AD%20%F0%9F%8C%9F%20%D8%B9%D9%85%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D9%87%D8%B6%D9%85%20%D9%84%D9%84%D8%B5%D9%81%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B9%20%F0%9F%8C%9F.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو
+        </video>
+    </div>
+    <div class="video-item">
+        <h3>الجهاز الهضمي - فيديو تعليمي للأطفال</h3>
+        <video controls>
+            <source src="%D8%A7%D9%84%D8%AC%D9%87%D8%A7%D8%B2%20%D8%A7%D9%84%D9%87%D8%B6%D9%85%D9%8A%20-%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%20%D9%84%D8%A7%D8%B7%D9%81%D8%A7%D9%84.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو
+        </video>
+    </div>
+    <div class="video-item">
+        <h3>حيوانات وأصواتها - فيديو تعليمي ممتع للأطفال</h3>
+        <video controls>
+            <source src="%D8%AD%D9%8A%D9%88%D8%A7%D9%86%D8%A7%D8%AA%20%D9%88%D8%A3%D8%B5%D9%88%D8%A7%D8%AA%D9%87%D8%A7%20_%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%20%D9%85%D9%85%D8%AA%D8%B9%20%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو
+        </video>
+    </div>
+    <div class="video-item">
+        <h3>تجربة درس العلوم للصف الرابع</h3>
+        <video controls>
+            <source src="%D8%AA%D8%AC%D8%A7%D8%B1%D8%A8%20%D8%AF%D8%B1%D8%B3%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D9%84%D9%84%D8%B5%D9%81%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B9.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو
+        </video>
+    </div>
+
     <h2>🎧 الملفات الصوتية</h2>
     <div class="audio-item"><h3>الجهاز التنفسي</h3><audio controls><source src="الجهاز%20التنفسي.mp3" type="audio/mpeg"></audio></div>
     <div class="audio-item"><h3>الجهاز الهضمي</h3><audio controls><source src="الجهاز%20الهضمي.mp3" type="audio/mpeg"></audio></div>
@@ -105,39 +136,16 @@
     <div class="audio-item"><h3>تعريف الحركة</h3><audio controls><source src="تعريف%20الحركة.mp3" type="audio/mpeg"></audio></div>
     <div class="audio-item"><h3>تعريف الطاقة</h3><audio controls><source src="تعريف%20الطاقة.mp3" type="audio/mpeg"></audio></div>
     <div class="audio-item"><h3>دورة المياه</h3><audio controls><source src="دورة%20المياه.mp3" type="audio/mpeg"></audio></div>
-    <div class="audio-item"><h3>صوت حيوان 2</h3><audio controls><source src="صوت%20حيوان%202.mp3" type="audio/mpeg"></audio></div>
-    <div class="audio-item"><h3>صوت حيوان</h3><audio controls><source src="صوت%20حيوان.mp3" type="audio/mpeg"></audio></div>
 
     <h2>🖼️ معرض الصور التعليمية</h2>
     <div class="gallery">
-        <div class="image-item">
-            <h3>صورة 1</h3>
-            <img src="WhatsApp%20Image%202026-04-08%20at%201.54.24%20PM.jpg" alt="صورة تعليمية 1">
-        </div>
-        <div class="image-item">
-            <h3>صورة 2</h3>
-            <img src="WhatsApp%20Image%202026-04-08%20at%201.54.25%20PM.jpg" alt="صورة تعليمية 2">
-        </div>
-        <div class="image-item">
-            <h3>صورة 3</h3>
-            <img src="download%20(29).jpg" alt="صورة تعليمية 3">
-        </div>
-        <div class="image-item">
-            <h3>صورة 4</h3>
-            <img src="download%20(3).jpg" alt="صورة تعليمية 4">
-        </div>
-        <div class="image-item">
-            <h3>صورة 5</h3>
-            <img src="download%20(9).jpg" alt="صورة تعليمية 5">
-        </div>
-        <div class="image-item">
-            <h3>صورة 6</h3>
-            <img src="download.jpg" alt="صورة تعليمية 6">
-        </div>
-        <div class="image-item">
-            <h3>صورة 7</h3>
-            <img src="0e9d05e38731ea553b5b30c6bc56e57e.jpg" alt="صورة تعليمية 7">
-        </div>
+        <div class="image-item"><h3>صورة 1</h3><img src="WhatsApp%20Image%202026-04-08%20at%201.54.24%20PM.jpg" alt="صورة تعليمية 1"></div>
+        <div class="image-item"><h3>صورة 2</h3><img src="WhatsApp%20Image%202026-04-08%20at%201.54.25%20PM.jpg" alt="صورة تعليمية 2"></div>
+        <div class="image-item"><h3>صورة 3</h3><img src="download%20(29).jpg" alt="صورة تعليمية 3"></div>
+        <div class="image-item"><h3>صورة 4</h3><img src="download%20(3).jpg" alt="صورة تعليمية 4"></div>
+        <div class="image-item"><h3>صورة 5</h3><img src="download%20(9).jpg" alt="صورة تعليمية 5"></div>
+        <div class="image-item"><h3>صورة 6</h3><img src="download.jpg" alt="صورة تعليمية 6"></div>
+        <div class="image-item"><h3>صورة 7</h3><img src="0e9d05e38731ea553b5b30c6bc56e57e.jpg" alt="صورة تعليمية 7"></div>
     </div>
 
 </body>
